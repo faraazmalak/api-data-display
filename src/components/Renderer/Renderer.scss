@@ -1,0 +1,18 @@
+.component-renderer{
+  padding-bottom: 40px;
+  .status-information{
+    text-align: center;
+    position: relative;
+    .loader-icon-container{
+      margin: 0 auto;
+      left: 50%;
+      position: absolute;
+    }
+    .label{
+      text-transform: capitalize;
+      color: grey;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+}

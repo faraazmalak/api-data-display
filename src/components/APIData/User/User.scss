@@ -1,0 +1,60 @@
+.user{
+
+
+  .column-container{
+    grid-template-columns: 15% auto;
+    display: grid;
+    .column{
+      margin: auto 0;
+      &.right{
+        padding-left: 20px;
+      }
+    }
+  }
+  .row-container{
+    display: grid;
+  }
+
+  .user-avatar{
+    border-radius: 100%;
+    width: 100%;
+    max-width: 128px;
+    height: auto;
+    background: grey;
+    color: transparent;
+  }
+
+  .user-name{
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+    margin-bottom: 5px;
+  }
+  .user-email{
+    font-size: 14px;
+  }
+  .user-name, .user-email{
+    display: block;
+    word-break: break-all;
+
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .user{
+    .column-container{
+      grid-template-columns: none;
+      .column{
+
+        &.right{
+          padding-left: 0;
+        }
+        text-align: center;
+      }
+    }
+    .user-email, .user-name{
+      text-align: center;
+    }
+
+  }
+}

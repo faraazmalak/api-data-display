@@ -1,0 +1,53 @@
+
+.loader-icon-container{
+  .loader-icon{
+    position: absolute;
+    top: 0;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+
+    &.static{
+      background-color: #7fb900;
+      transform: scale(0.09);
+      transform-origin: top left;
+
+    }
+    &.animated{
+      left: -114px;
+      top: -114px;
+
+      &.fast{
+
+        background-color: #e5f1cc;
+        animation: spinner-grow-fast 2s linear infinite;
+        @keyframes spinner-grow-fast{
+          0%{transform:scale(0)}
+          50%{opacity:0.4}
+          100%{opacity: 0}
+        }
+      }
+      &.slow{
+        background-color: #d0e5a3;
+        animation: spinner-grow-slow 4s linear infinite;
+        @keyframes spinner-grow-slow{
+          0%{transform:scale(0)}
+          50%{opacity:0.4}
+          100%{opacity: 0}
+        }
+      }
+    }
+
+  }
+}
+
+
+#user-app{
+  & > .loader-icon-container{
+    position: fixed;
+    top: 50vh;
+    left: calc(50vw - 10px)
+  }
+
+}
+
