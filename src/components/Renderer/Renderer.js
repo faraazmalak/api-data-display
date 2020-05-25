@@ -49,7 +49,7 @@ export function Renderer(props) {
 }
 Renderer.propTypes={
   provider: PropTypes.object,
-  componentToRender: PropTypes.function,
-  plugin: PropTypes.function,
+  componentToRender: PropTypes.func,
+  plugin: PropTypes.func,
   componentAttributes: PropTypes.array,
 };
