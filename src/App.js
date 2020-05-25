@@ -28,10 +28,7 @@ function App() {
                     componentToRender={User}
                     componentAttributes={userAttributes}
                     plugin={ListRenderer}/>
-
             </Provider>
-
-
         </div>
     );
 

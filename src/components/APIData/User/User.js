@@ -1,5 +1,6 @@
 import React from 'react';
 import "./User.scss"
+import PropTypes from 'prop-types';
 
 export function User(props){
     const full_name = props.first_name + ' ' + props.last_name;
@@ -17,6 +18,14 @@ export function User(props){
         </div>
     )
 }
+//Prop Validation
+User.propTypes={
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    avatar: PropTypes.string,
+    email: PropTypes.string
+}
+
 
 //User data, to be rendered
 export const userAttributes = ['avatar','first_name','last_name','email'];

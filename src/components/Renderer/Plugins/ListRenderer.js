@@ -1,8 +1,7 @@
 import React from 'react';
 import  "./ListRenderer.scss";
-
+import PropTypes from "prop-types";
 export function ListRenderer(props) {
-
     return (
         <ul className="list-group">
             {
@@ -16,4 +15,7 @@ export function ListRenderer(props) {
             }
         </ul>
     );
+}
+ListRenderer.propTypes = {
+    componentsToRender: PropTypes.array
 }

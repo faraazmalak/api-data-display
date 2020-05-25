@@ -1,6 +1,7 @@
 import React from 'react';
 import {LoaderIcon} from "../LoaderIcon/LoaderIcon";
 import "./Renderer.scss";
+import PropTypes from "prop-types";
 
 export function Renderer(props) {
     const ComponentToRender = props.componentToRender;
@@ -40,8 +41,10 @@ export function Renderer(props) {
     }
 
     return null;
-
-
-
-
+}
+Renderer.propTypes={
+    provider: PropTypes.object,
+    componentToRender: PropTypes.function,
+    plugin: PropTypes.function,
+    componentAttributes: PropTypes.object
 }
