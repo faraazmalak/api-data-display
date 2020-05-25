@@ -29,12 +29,7 @@ export  function userProviderEffect(provider) {
                 document.documentElement.clientHeight :
                 document.body.clientHeight;
             const contentHeight = document.getElementById('user-app').clientHeight;
-            const loaderIcon = document.querySelector('.status-information .loader-icon-container .loader-icon');
-            let loaderIconHeight = 0;
-            if (loaderIcon) {
-                loaderIconHeight = loaderIcon.clientHeight;
-            }
-            if ((clientHeight + window.pageYOffset) >= contentHeight + loaderIconHeight / 4) {
+            if ((clientHeight + window.pageYOffset) >= contentHeight) {
                 if (!provider.isFetchingData() && !provider.isFull()) {
 
                     provider.fetch().then(fetchUserData)
