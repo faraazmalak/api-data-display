@@ -26,11 +26,8 @@ export  function userProviderEffect(provider) {
     if (provider && provider.isEmpty()) {
 
         function fetchUserData() {
-            const clientHeight = (document.compatMode === "CSS1Compat") ?
-                document.documentElement.clientHeight :
-                document.body.clientHeight;
             const contentHeight = document.getElementById('user-app').clientHeight;
-            if ((clientHeight + window.pageYOffset) >= contentHeight) {
+            if ((window.innerHeight + window.pageYOffset) >= contentHeight) {
                 if (!provider.isFetchingData() && !provider.isFull()) {
 
                     provider.fetch().then(fetchUserData)
