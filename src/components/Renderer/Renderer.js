@@ -51,5 +51,5 @@ Renderer.propTypes={
   provider: PropTypes.object,
   componentToRender: PropTypes.function,
   plugin: PropTypes.function,
-  componentAttributes: PropTypes.object,
+  componentAttributes: PropTypes.array,
 };

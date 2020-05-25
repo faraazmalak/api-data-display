@@ -30,7 +30,9 @@ User.propTypes={
 };
 
 
-// User data, to be rendered
+/**
+ * User data, to be rendered
+ */
 export const userAttributes = ['avatar', 'first_name', 'last_name', 'email'];
 
 /**
