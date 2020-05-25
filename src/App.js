@@ -8,7 +8,7 @@ import {Provider} from './components/Provider/Provider'
 import {createProviderRegister} from "./components/ProviderRegister/ProviderRegister";
 
 function App() {
-    console.log('================= APP RENDER ===================')
+
     const [, updateState] = useState(new Date().getTime());
     const [providerRegister,] = useState(createProviderRegister());
 

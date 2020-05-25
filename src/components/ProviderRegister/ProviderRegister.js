@@ -8,7 +8,6 @@ export function createProviderRegister() {
          *If the provider has already been registered, false is returned, else true is returned
         */
         addNewProvider: function (provider) {
-            console.log(register)
             if (!register[provider.id]) {
                 register[provider.id] = provider
                 return true;
@@ -17,7 +16,6 @@ export function createProviderRegister() {
         },
         isProviderRegistered: (providerID) => Boolean(register[providerID]),
         getProvider: (providerID) => {
-            console.log(register[providerID])
             return register[providerID]
         }
 

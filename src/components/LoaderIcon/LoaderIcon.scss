@@ -45,8 +45,8 @@
 #user-app{
   & > .loader-icon-container{
     position: fixed;
-    top: 50vh;
-    left: calc(50vw - 10px)
+    top: calc(50vh + -12px);
+    left: calc(50vw + -12px)
   }
 
 }
