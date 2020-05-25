@@ -6,7 +6,7 @@ export function User(props){
         <div className="user">
             <div className="column-container">
                 <div className="left column">
-                    <img  width="128px" height="128px" className="user-avatar" src={props.avatar} alt="avatar"/>
+                    <img  width="128" height="128" className="user-avatar" src={props.avatar} alt="avatar"/>
                 </div>
                 <div className="right column row-container">
                     <span className="user-name row">{props.first_name + ' ' + props.last_name}</span>
