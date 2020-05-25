@@ -15,7 +15,7 @@ function App() {
 
     return (
         <div id="user-app">
-
+            <h1 id="app-title">API Data Display App</h1>
             <Provider
                 id={userProviderConfig.id}
                 url={userProviderConfig.url}
