@@ -27,7 +27,7 @@ export  function userProviderEffect(provider) {
 
         function fetchUserData() {
             const contentHeight = document.getElementById('user-app').clientHeight;
-            if ((window.innerHeight + window.pageYOffset) >= contentHeight) {
+            if ((window.innerHeight + window.pageYOffset) >= (contentHeight - 50)) {
                 if (!provider.isFetchingData() && !provider.isFull()) {
 
                     provider.fetch().then(fetchUserData)
