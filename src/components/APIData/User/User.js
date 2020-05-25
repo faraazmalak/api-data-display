@@ -42,8 +42,14 @@ export  function userProviderEffect(provider) {
         setTimeout(fetchUserData, 3000)
 
 
-        window.addEventListener('scroll', fetchUserData)
-        window.addEventListener('resize', fetchUserData)
+        window.addEventListener('scroll', fetchUserData);
+        window.addEventListener('resize', fetchUserData);
+
+        //Remove event listeners, when component is unmounted
+        return function cleanup(){
+            window.removeEventListener('scroll', fetchUserData);
+            window.removeEventListener('resize', fetchUserData);
+        }
 
 
     }
