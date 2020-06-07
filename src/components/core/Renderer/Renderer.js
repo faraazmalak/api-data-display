@@ -1,8 +1,8 @@
 import React from 'react';
-import {LoaderIcon} from '../LoaderIcon/LoaderIcon';
+import {LoaderIcon} from '../../core/LoaderIcon/LoaderIcon';
 import './Renderer.scss';
 import PropTypes from 'prop-types';
-
+import {getDataProviderManager} from '../DataProvider/DataProviderManager';
 
 /**
  * Processes the User component, based on its configuration.
@@ -14,7 +14,8 @@ export function Renderer(props) {
   const RenderPlugin = props.plugin;
   let key = 0;
 
-  const provider = props.provider;
+  const providerManager = getDataProviderManager();
+  const provider = providerManager.getProvider(props.providerID);
 
 
   if (provider && provider.getData()) {
@@ -32,12 +33,12 @@ export function Renderer(props) {
     return (
       <div className="component-renderer">
         {/* If RenderPlugin is specified, use it*/}
-        {RenderPlugin && <RenderPlugin componentsToRender={componentsToRender} />}
+        {RenderPlugin && <RenderPlugin componentsToRender={componentsToRender}/>}
         {!RenderPlugin && componentsToRender}
 
         <div className="status-information">
-          <LoaderIcon isVisible={!provider.isFull()} />
-          {provider.isFull() && <div className="label no-data-available">No more data available</div> }
+          <LoaderIcon isVisible={!provider.isFull()}/>
+          {provider.isFull() && <div className="label no-data-available">No more data available</div>}
         </div>
 
       </div>
@@ -47,9 +48,11 @@ export function Renderer(props) {
 
   return null;
 }
-Renderer.propTypes={
+
+Renderer.propTypes = {
   provider: PropTypes.object,
   componentToRender: PropTypes.func,
   plugin: PropTypes.func,
   componentAttributes: PropTypes.array,
+  providerID: PropTypes.string,
 };

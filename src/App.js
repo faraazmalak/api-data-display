@@ -1,36 +1,35 @@
 import React, {useState} from 'react';
 import './App.scss';
 
-import {Renderer} from './components/Renderer/Renderer';
-import {User, userAttributes, userProviderEffect, userProviderConfig} from './components/APIData/User/User';
-import {ListRenderer} from './components/Renderer/Plugins/ListRenderer';
-import {Provider} from './components/Provider/Provider';
-import {createProviderRegister} from './components/ProviderRegister/ProviderRegister';
+import {Renderer} from './components/core/Renderer/Renderer';
+import {User} from './components/API/User/User';
+import {UserConfig} from './components/API/User/UserConfig';
+import {ListRenderer} from './components/core/Renderer/Plugins/ListRenderer';
+import {DataProviderUI} from './components/core/DataProvider/DataProviderUI';
 
 /**
  * Entry point into the application
  */
 function App() {
   const [, updateState] = useState(new Date().getTime());
-  const [providerRegister] = useState(createProviderRegister());
-
 
   return (
     <div id="user-app">
       <h1 id="app-title">API Data Display App</h1>
-      <Provider
-        id={userProviderConfig.id}
-        url={userProviderConfig.url}
-        effects={userProviderEffect}
-        updateState={updateState}
-        providerRegister={providerRegister}>
+
+      <DataProviderUI
+        id={UserConfig.id}
+        url={UserConfig.url}
+        effects={UserConfig.effects}
+        updateState={updateState}>
 
         <Renderer
-          provider={providerRegister.getProvider(userProviderConfig.id)}
+          providerID ={UserConfig.id}
           componentToRender={User}
-          componentAttributes={userAttributes}
+          componentAttributes={UserConfig.attributesToRender}
           plugin={ListRenderer}/>
-      </Provider>
+
+      </DataProviderUI>
     </div>
   );
 }
