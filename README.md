@@ -41,4 +41,4 @@ The folder contains components representing the 3rd party API data.
 For example, we have a User component, which specifies all the rendering configuration of user data
 
 ### src/components/core
-This folder contains a set of components that can take any component from src/components/API and render it on the canvas.
+This folder contains a set of Higher-Order components that can take any component from src/components/API and render it on the canvas.
