@@ -24,8 +24,10 @@ module.exports = {
     "rules": {
         "no-inner-declarations": "off",
         "no-extra-boolean-cast": "off",
-        "max-len": [2, 120],
-        "valid-jsdoc": 0,
-        "camelcase": 0
+        "max-len": [2, 130],
+        "valid-jsdoc": "off",
+        "camelcase": "off",
+        "linebreak-style": ["error","windows"],
+        "indent": ["error",4]
     }
 };

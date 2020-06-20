@@ -1,37 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.scss';
 
 import {Renderer} from './components/core/Renderer/Renderer';
-import {User} from './components/API/User/User';
-import {UserConfig} from './components/API/User/UserConfig';
+import UserProviderConfig from './components/API/User/DataProviderConfig';
+import ShipmentProviderConfig from './components/API/Shipment/DataProviderConfig';
 import {ListRenderer} from './components/core/Renderer/Plugins/ListRenderer';
-import {DataProviderUI} from './components/core/DataProvider/DataProviderUI';
+import {getDataProviderRegistry} from "./components/core/DataProvider/Registry";
 
 /**
  * Entry point into the application
  */
 function App() {
-  const [, updateState] = useState(new Date().getTime());
+    const dataProviderRegistry = getDataProviderRegistry();
 
-  return (
-    <div id="user-app">
-      <h1 id="app-title">API Data Display App</h1>
+    dataProviderRegistry.addNewProvider(UserProviderConfig).activate();
+    dataProviderRegistry.addNewProvider(ShipmentProviderConfig);
 
-      <DataProviderUI
-        id={UserConfig.id}
-        url={UserConfig.url}
-        effects={UserConfig.effects}
-        updateState={updateState}>
-
-        <Renderer
-          providerID ={UserConfig.id}
-          componentToRender={User}
-          componentAttributes={UserConfig.attributesToRender}
-          plugin={ListRenderer}/>
-
-      </DataProviderUI>
-    </div>
-  );
+    useEffect(function () {
+        const activeDataProvider = dataProviderRegistry.getActiveProvider();
+        const activeDataProviderConfig = activeDataProvider.getProviderConfig();
+        if (activeDataProviderConfig.effects && !activeDataProvider.isEffectRegistered()) {
+            activeDataProviderConfig.effects(activeDataProvider);
+            activeDataProvider.registerEffects();
+        }
+    });
+    return (
+        <div id="user-app">
+            <h1 id="app-title">API Data Display App</h1>
+            <Renderer
+                dataProvider={dataProviderRegistry.getActiveProvider()}
+                plugin={ListRenderer}
+            />
+        </div>
+    );
 }
 
 export default App;

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {LoaderIcon} from '../../core/LoaderIcon/LoaderIcon';
 import './Renderer.scss';
 import PropTypes from 'prop-types';
-import {getDataProviderManager} from '../DataProvider/DataProviderManager';
 
 /**
  * Processes the User component, based on its configuration.
@@ -10,49 +9,53 @@ import {getDataProviderManager} from '../DataProvider/DataProviderManager';
  * This app uses ListRenderer Plugin, which is used to render a list of User Data.
  */
 export function Renderer(props) {
-  const ComponentToRender = props.componentToRender;
-  const RenderPlugin = props.plugin;
-  let key = 0;
+    const dataProvider = props.dataProvider;
+    const providerConfig = dataProvider.getProviderConfig();
 
-  const providerManager = getDataProviderManager();
-  const provider = providerManager.getProvider(props.providerID);
+    const [,rendererStateUpdater] = useState(new Date().getTime());
+    dataProvider.addRendererStateUpdater(rendererStateUpdater);
 
+    const ComponentToRender = providerConfig.componentToRender;
+    const RenderPlugin = props.plugin;
+    let key = 0;
 
-  if (provider && provider.getData()) {
+    if (dataProvider && dataProvider.getData()) {
     // Prepare list of props.componentToRender, based on props.componentAttributes
-    const componentsToRender = provider.getData().map((jsonObject) => {
-      const componentProps = {};
-      key++;
-      props.componentAttributes.forEach((attribute) => {
-        if (jsonObject[attribute] !== undefined) {
-          componentProps[attribute] = jsonObject[attribute];
-        }
-      });
-      return <ComponentToRender key={key} {...componentProps} />;
-    });
-    return (
-      <div className="component-renderer">
-        {/* If RenderPlugin is specified, use it*/}
-        {RenderPlugin && <RenderPlugin componentsToRender={componentsToRender}/>}
-        {!RenderPlugin && componentsToRender}
 
-        <div className="status-information">
-          <LoaderIcon isVisible={!provider.isFull()}/>
-          {provider.isFull() && <div className="label no-data-available">No more data available</div>}
-        </div>
+        const componentsToRender = dataProvider.getData().map((jsonObject) => {
+            const componentProps = {};
 
-      </div>
+            key++;
+            providerConfig.attributesToRender.forEach((attribute) => {
+                if (jsonObject[attribute] !== undefined) {
+                    componentProps[attribute] = jsonObject[attribute];
+                }
+            });
+            return <ComponentToRender key={key} {...componentProps} />;
+        });
+        return (
+            <div className="component-renderer">
+                {/* If RenderPlugin is specified, use it*/}
+                {RenderPlugin && <RenderPlugin componentsToRender={componentsToRender}/>}
+                {!RenderPlugin && componentsToRender}
 
-    );
-  }
+                <div className="status-information">
+                    <LoaderIcon isVisible={!dataProvider.isMoreDataAvailable()}/>
+                    {!dataProvider.isMoreDataAvailable() && <div className="label no-data-available">No more data available</div>}
+                </div>
 
-  return null;
+            </div>
+
+        );
+    }
+
+    return <LoaderIcon isVisible={true} />;
 }
 
 Renderer.propTypes = {
-  provider: PropTypes.object,
-  componentToRender: PropTypes.func,
-  plugin: PropTypes.func,
-  componentAttributes: PropTypes.array,
-  providerID: PropTypes.string,
+    provider: PropTypes.object,
+    componentToRender: PropTypes.func,
+    plugin: PropTypes.func,
+    componentAttributes: PropTypes.array,
+    providerID: PropTypes.string,
 };
